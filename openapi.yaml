@@ -20,184 +20,184 @@ paths:
                   message:
                     type: string
                     example: "Welcome to the Mock Sensor API!"
-  # /sen55:
-  #   get:
-  #     summary: Get SEN55 Data
-  #     operationId: getSen55Data
-  #     responses:
-  #       '200':
-  #         description: Successful retrieval of SEN55 data
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 PM2p5:
-  #                   type: number
-  #                   format: float
-  #                   example: 12.5
-  #                 PM10:
-  #                   type: number
-  #                   format: float
-  #                   example: 15.2
+  /sen55:
+    get:
+      summary: Get SEN55 Data
+      operationId: getSen55Data
+      responses:
+        '200':
+          description: Successful retrieval of SEN55 data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PM2p5:
+                    type: number
+                    format: float
+                    example: 12.5
+                  PM10:
+                    type: number
+                    format: float
+                    example: 15.2
 
-  # /sensors/types:
-  #   get:
-  #     summary: Get list of sensor types
-  #     operationId: getSensorTypesList
-  #     responses:
-  #       '200':
-  #         description: Successful retrieval of sensor types list
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 sensorTypes:
-  #                   type: array
-  #                   items:
-  #                     type: object
-  #                     properties:
-  #                       id:
-  #                         type: string
-  #                         example: "careStreet"
-  #                       name:
-  #                         type: string
-  #                         example: "CARE Street"
-  #                       unitPrice:
-  #                         type: number
-  #                         format: float
-  #                         example: 50000.0
-  #                       description:
-  #                         type: string
-  #                         example: "Monitors air quality in the streets"
-  #                       pollutionTypes:
-  #                         type: string
-  #                         example: "pm2p5, pm10, co2"
+  /sensors/types:
+    get:
+      summary: Get list of sensor types
+      operationId: getSensorTypesList
+      responses:
+        '200':
+          description: Successful retrieval of sensor types list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sensorTypes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "careStreet"
+                        name:
+                          type: string
+                          example: "CARE Street"
+                        unitPrice:
+                          type: number
+                          format: float
+                          example: 50000.0
+                        description:
+                          type: string
+                          example: "Monitors air quality in the streets"
+                        pollutionTypes:
+                          type: string
+                          example: "pm2p5, pm10, co2"
 
-  # /mock_sensor:
-  #   post:
-  #     summary: Create Mock Sensor Data
-  #     operationId: createMockSensorData
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             type: object
-  #             properties:
-  #               gps_lat:
-  #                 type: number
-  #                 format: float
-  #                 example: 37.7749
-  #               gps_long:
-  #                 type: number
-  #                 format: float
-  #                 example: -122.4194
-  #     responses:
-  #       '201':
-  #         description: Successfully created mock sensor data
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 message:
-  #                   type: string
-  #                   example: "Mock sensor data created successfully."
-  #       '400':
-  #         description: Bad Request - Invalid input data
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 error:
-  #                   type: string
-  #                   example: "Invalid input data."
+  /mock_sensor:
+    post:
+      summary: Create Mock Sensor Data
+      operationId: createMockSensorData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gps_lat:
+                  type: number
+                  format: float
+                  example: 37.7749
+                gps_long:
+                  type: number
+                  format: float
+                  example: -122.4194
+      responses:
+        '201':
+          description: Successfully created mock sensor data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Mock sensor data created successfully."
+        '400':
+          description: Bad Request - Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid input data."
 
-  # /sensors/orders:
-  #   post:
-  #     summary: Submit an order
-  #     operationId: submitOrder
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             type: object
-  #             properties:
-  #               name:
-  #                 type: string
-  #                 example: "John Doe"
-  #               email:
-  #                 type: string
-  #                 example: "john.doe@example.com"
-  #               mobileNumber:
-  #                 type: integer
-  #                 example: 1234567890
-  #               orderMade:
-  #                 type: string
-  #                 format: date-time
-  #                 example: "2024-09-07T12:16:51Z" # ISO 8601 format in UTC
-  #               deliveryDate:
-  #                 type: string
-  #                 format: date-time
-  #                 example: "2024-09-10T12:16:51Z" # ISO 8601 format in UTC
-  #               cart:
-  #                 type: array
-  #                 items:
-  #                   type: object
-  #                   properties:
-  #                     id:
-  #                       type: string
-  #                       example: "item123"
-  #                     quantity:
-  #                       type: integer
-  #                       example: 2
+  /sensors/orders:
+    post:
+      summary: Submit an order
+      operationId: submitOrder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                email:
+                  type: string
+                  example: "john.doe@example.com"
+                mobileNumber:
+                  type: integer
+                  example: 1234567890
+                orderMade:
+                  type: string
+                  format: date-time
+                  example: "2024-09-07T12:16:51Z" # ISO 8601 format in UTC
+                deliveryDate:
+                  type: string
+                  format: date-time
+                  example: "2024-09-10T12:16:51Z" # ISO 8601 format in UTC
+                cart:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "item123"
+                      quantity:
+                        type: integer
+                        example: 2
 
-  #     responses:
-  #       '200':
-  #         description: Successfully submitted order 
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 message:
-  #                   type: string
-  #                   example: "orders submitted successfully"
+      responses:
+        '200':
+          description: Successfully submitted order 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "orders submitted successfully"
 
-  #       '400':
-  #         description : Bad Request - Invalid input data 
-  #         content :
-  #           application/json :
-  #             schema :
-  #               type : object 
-  #               properties :
-  #                 error :
-  #                   type : string 
-  #                   example : "Invalid input data."
+        '400':
+          description : Bad Request - Invalid input data 
+          content :
+            application/json :
+              schema :
+                type : object 
+                properties :
+                  error :
+                    type : string 
+                    example : "Invalid input data."
 
-  #   get :
-  #     summary : List all sensor orders 
-  #     operationId : listOrders 
-  #     responses :
-  #       '200' :
-  #         description : A list of sensor orders 
-  #         content :
-  #           application/json :
-  #             schema :
-  #               type : array 
-  #               items :
-  #                 type : object 
-  #                 properties :
-  #                   name :
-  #                     type : string 
-  #                     example : "John Doe"
-  #                   email :
-  #                     type : string 
-  #                     example : "john.doe@example.com"
-  #                   mobileNumber :
-  #                     type : integer 
-  #                     example : 1234567890
+    get :
+      summary : List all sensor orders 
+      operationId : listOrders 
+      responses :
+        '200' :
+          description : A list of sensor orders 
+          content :
+            application/json :
+              schema :
+                type : array 
+                items :
+                  type : object 
+                  properties :
+                    name :
+                      type : string 
+                      example : "John Doe"
+                    email :
+                      type : string 
+                      example : "john.doe@example.com"
+                    mobileNumber :
+                      type : integer 
+                      example : 1234567890
