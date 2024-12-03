@@ -279,7 +279,6 @@ paths:
                     type: string
                     example: "An unexpected error occurred."
   
-  /sensors/mock_sensor:
     get:
       summary: Get Interpolated Sensor Data
       operationId: getInterpolatedSensorData
