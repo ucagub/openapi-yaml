@@ -281,7 +281,7 @@ paths:
   
     get:
       summary: Get Interpolated Sensor Data
-      operationId: getInterpolatedSensorData
+      operationId: getInterpolatedSensorDataRizal
       responses:
         '200':
           description: Successful retrieval of interpolated sensor data
