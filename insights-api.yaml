@@ -1,0 +1,176 @@
+openapi: "3.1.0"
+info:
+  title: AQI insights Anthropic
+  description: API for generating insights from mock data
+  version: 1.0.0
+servers:
+  - url: https://insight-api-866641614553.asia-southeast1.run.app/
+
+paths:
+  /weather_insight:
+    get:
+      summary: Get Weather Insight
+      operationId: getWeatherInsight
+      responses:
+        '200':
+          description: Successful retrieval of weather insight
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    example: "The weather is expected to be sunny with a high of 75°F."
+
+  /question:
+    post:
+      summary: Ask a Question
+      operationId: askQuestion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  example: "What is the best way to prepare for a storm?"
+      responses:
+        '200':
+          description: Successful answer retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    example: "To prepare for a storm, ensure you have enough supplies and stay informed about weather updates."
+        '400':
+          description: Bad Request - Validation error in the question format
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loc:
+                          type: array
+                          items:
+                            type: string
+                        msg:
+                          type: string
+                        type:
+                          type: string
+
+  /feedback:
+    post:
+      summary: Submit Feedback
+      operationId: submitFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                stars:
+                  type: integer
+                  example: 5 # Feedback rating from 1 to 5.
+      responses:
+        '200':
+          description: Feedback received successfully.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "received feedback"
+        '400':
+          description: Bad Request - Validation error in the feedback format.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loc:
+                          type: array
+                          items:
+                            type: string
+                        msg:
+                          type: string
+                        type:
+                          type: string
+
+  /aqi_insight:
+    get:
+      summary: Get AQI Insight
+      operationId: getAqiInsight
+      responses:
+        '200':
+          description: Successful retrieval of AQI insight.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  aqi_category:
+                    type: string
+                    example: "Good" # Example AQI category
+                  aqi_color_hex:
+                    type: string
+                    example: "#00FF00" # Example color hex code for the AQI category
+                  text:
+                    type: string
+                    example: "The air quality is good, and it is safe to go outside."
+
+  /sensors/aqi:
+    get:
+      summary: Get Sensors AQI Data
+      operationId: getSensorsAqiData
+      responses:
+        '200':
+          description: Successful retrieval of sensor AQI data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sensors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        GPS_LAT:
+                          type: number
+                          format: float
+                          example: 14.655200 # Example latitude
+                        GPS_LONG:
+                          type: number
+                          format: float
+                          example: 121.068000 # Example longitude
+                        aqi_color_hex:
+                          type: string
+                          example: "#00E400" # Example color hex code for the AQI category
+                required:
+                  - sensors
+        '500':
+          description: Internal Server Error - Unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred."

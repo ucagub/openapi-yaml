@@ -5,6 +5,7 @@ info:
   version: 1.0.0
 servers:
   - url: https://mock-sensor-data-service-866641614553.asia-southeast1.run.app
+  # - url: http://localhost:8080/
 paths:
   /:
     get:
@@ -179,25 +180,162 @@ paths:
                     type : string 
                     example : "Invalid input data."
 
-    get :
-      summary : List all sensor orders 
-      operationId : listOrders 
-      responses :
-        '200' :
-          description : A list of sensor orders 
-          content :
-            application/json :
-              schema :
-                type : array 
-                items :
-                  type : object 
-                  properties :
-                    name :
-                      type : string 
-                      example : "John Doe"
-                    email :
-                      type : string 
-                      example : "john.doe@example.com"
-                    mobileNumber :
-                      type : integer 
-                      example : 1234567890
+    get:
+      summary: List all sensor orders 
+      operationId: listOrders 
+      responses:
+        '200':
+          description: A list of sensor orders 
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  type: object 
+                  properties:
+                    name:
+                      type: string 
+                      example: "John Doe"
+                    email:
+                      type: string 
+                      example: "john.doe@example.com"
+                    mobileNumber:
+                      type: integer 
+                      example: 1234567890
+  
+  /sensors/mock_sensor:
+    post:
+      summary: Get Interpolated Sensor Data
+      operationId: getInterpolatedSensorData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gps_lat:
+                  type: number
+                  format: float
+                  example: 37.7749 # Example latitude
+                gps_long:
+                  type: number
+                  format: float
+                  example: -122.4194 # Example longitude
+      responses:
+        '200':
+          description: Successful retrieval of interpolated sensor data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gps_lat:
+                    type: number
+                    format: float
+                    example: 37.7749 # Returned latitude
+                  gps_long:
+                    type: number
+                    format: float
+                    example: -122.4194 # Returned longitude
+                  pm2p5:
+                    type: number
+                    format: float
+                    example: 12.5 # Example PM2.5 value
+                  pm10:
+                    type: number
+                    format: float
+                    example: 15.2 # Example PM10 value
+                  co2:
+                    type: number
+                    format: float
+                    example: 400.0 # Example CO2 value
+                  voci:
+                    type: integer
+                    example: 5 # Example VOCI value
+                  noxi:
+                    type: integer
+                    example: 3 # Example NOxI value
+
+        '400':
+          description: Bad Request - Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid GPS coordinates."
+
+        '500':
+          description: Internal Server Error - Unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred."
+  
+  /sensors/mock_sensor:
+    get:
+      summary: Get Interpolated Sensor Data
+      operationId: getInterpolatedSensorData
+      responses:
+        '200':
+          description: Successful retrieval of interpolated sensor data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gps_lat:
+                    type: number
+                    format: float
+                    example: 37.7749 # Returned latitude
+                  gps_long:
+                    type: number
+                    format: float
+                    example: -122.4194 # Returned longitude
+                  pm2p5:
+                    type: number
+                    format: float
+                    example: 12.5 # Example PM2.5 value
+                  pm10:
+                    type: number
+                    format: float
+                    example: 15.2 # Example PM10 value
+                  co2:
+                    type: number
+                    format: float
+                    example: 400.0 # Example CO2 value
+                  voci:
+                    type: integer
+                    example: 5 # Example VOCI value
+                  noxi:
+                    type: integer
+                    example: 3 # Example NOxI value
+
+        '400':
+          description: Bad Request - Invalid input data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid GPS coordinates."
+
+        '500':
+          description: Internal Server Error - Unexpected error occurred.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred."
