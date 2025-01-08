@@ -338,3 +338,153 @@ paths:
                   error:
                     type: string
                     example: "An unexpected error occurred."
+
+  /locations:
+    get:
+      summary: Retrieve all locations
+      operationId: getAllLocations
+      tags:
+        - Locations
+      responses:
+        '200':
+          description: A list of all locations retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LocationPayload'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A message describing the error.
+    post:
+      summary: Insert a new location
+      operationId: insertLocation
+      tags:
+        - Locations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationPayload'
+      responses:
+        '200':
+          description: Successfully inserted the location.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Location inserted successfully."
+        '400':
+          description: Invalid input data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A message describing the error.
+                    example: "Invalid latitude or longitude."
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A message describing the error.
+                    example: "Failed to insert location."
+  
+  /siga:
+    post:
+      summary: Upload an image and location data
+      operationId: uploadHandler
+      tags:
+        - Uploads
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: The image file to upload.
+                latitude:
+                  type: number
+                  format: float
+                  description: The latitude of the location.
+                longitude:
+                  type: number
+                  format: float
+                  description: The longitude of the location.
+              required:
+                - image
+                - latitude
+                - longitude
+      responses:
+        '200':
+          description: Successfully uploaded the image and inserted location data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "File uploaded successfully!"
+        '400':
+          description: Invalid input data or processing error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A message describing the error.
+                    example: "Invalid latitude value."
+        '500':
+          description: Internal server error during processing.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: A message describing the error.
+                    example: "Failed to insert to BigQuery."
+
+components:
+  schemas:
+    LocationPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the location.
+        latitude:
+          type: number
+          format: float
+          description: The latitude of the location.
+        longitude:
+          type: number
+          format: float
+          description: The longitude of the location.
